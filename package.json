@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "module": "main.js",
   "scripts": {
     "start": "nodemon -r esm server.js"
   },
@@ -40,5 +41,17 @@
   "engines": {
     "node": ">=14.17.6",
     "npm": ">=6.14.15"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikejuwon/botaniclife.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/mikejuwon/botaniclife/issues"
+  },
+  "homepage": "https://github.com/mikejuwon/botaniclife#readme"
 }
