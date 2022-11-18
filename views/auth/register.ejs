@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="icon" type="image/png" href="/images/icons/favicon.png"/>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="/vendor/bootstrap/css/owl.carousel.min.css" />
+
+    <!-- Bootstrap CSS -->    
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/css/auth-style.css" />
+
+    <title>Register | BotanicLife</title>
+  </head>
+  <body>
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5 align-items-center order-md-2">
+            <img
+              src="/img/undraw_file_sync_ot38.svg"
+              alt="Image"
+              class="img-fluid"
+            />
+
+            <span class="d-block text-left my-4 text-muted">
+                or sign up with</span
+              >
+
+              <div class="social-login">
+                <a href="#" class="facebook">
+                  <span class="icon-facebook mr-3"></span>
+                </a>
+                <a href="#" class="twitter">
+                  <span class="icon-twitter mr-3"></span>
+                </a>
+                <a href="#" class="google">
+                  <span class="icon-google mr-3"></span>
+                </a>
+              </div>
+            
+              <!-- link to login -->
+                <span class="d-block text-left my-4 text-muted">
+                    Already have an account? <a href="/login">Login</a>
+                </span>
+          </div>
+          <div class="col-md-7 contents">
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+
+                <%- include("../components/alert-message") %> 
+
+                <div class="mb-4">
+                    <div class="mb-5">
+                        <a href="/">
+                            <img src="/img/botaniclife-logo.png" alt="Logo">
+                        </a>
+                    </div>
+                    <h3>Register with <strong>BotanicLife</strong></h3>
+                  <p class="mb-4">
+                    BotanicLife offers products for your healthy living.
+                  </p>
+                </div>
+
+                <form action="/register" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control form-control-sm" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name">Last Name</label>
+                            <input type="text" class="form-control form-control-sm" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Enter your email" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputPassword4">Password</label>
+                        <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Enter your password" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputAddress">Address</label>
+                      <input type="text" class="form-control form-control-sm" id="address" name="address" placeholder="e.g 12, Parakou Street, Wuse, Abuja" required>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control form-control-sm" id="phone" name="phone" placeholder="Enter your phone number" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="phone">City/State</label>
+                        <input type="text" class="form-control form-control-sm" id="city" name="city" placeholder="Enter your city of residence" required>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-md">Register</button>
+                  </form>
+
+
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> -->
+
+    <script>
+      $(function () {
+        "use strict";
+
+        $(".form-control").on("input", function () {
+          var $field = $(this).closest(".form-group");
+          if (this.value) {
+            $field.addClass("field--not-empty");
+          } else {
+            $field.removeClass("field--not-empty");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

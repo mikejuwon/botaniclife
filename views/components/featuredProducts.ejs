@@ -1,0 +1,57 @@
+<!-- BEST SELLER PART START -->
+<div class="full-bestSeller" id="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3 class="section-title">Featured Products</h3>
+                <p class="section-subtitle">
+                    Here are our featured products that you can buy from our store.
+                </p>	
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <% if(products) { %> 
+                <% _.each(products, function(product) { %>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4">
+                        <div class="product" style="height: 370px;">
+                            <div class="product-img mt-3 mb-3">
+                                <img src="<%- product.image.url %>" alt="" width="240" height="220">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-details position-bottom-left">
+                                    <h3 class="product-name"><a href="/product/<%- product._id %>">
+                                        <%- product.name %>
+                                    </a></h3>
+                                    <!-- <span class="product-prev-price">$80 KG</span> -->
+                                    <span class="product-price">
+                                        ₦<%- product.price.toLocaleString(); %>
+                                    </span>
+                                </div>
+                                <div class="buttons">
+                                    <% if (product.quantity === 0) { %> 
+                                        <span class="sold-out-tag position-top-right">Sold Out</span>
+                                    <% } else { %>
+                                        <span class="sold-out-tag position-top-right">
+                                            Only <%- product.quantity %> left
+                                        </span>
+                                    <% } %>
+                                    <a href="/product/<%- product._id %>" class="btn custom-btn position-bottom-right"> View Product</a>
+                                </div>
+
+                                <div class="icons position-center">
+                                    <div class="rounded-icon">
+                                        <a href="/product/<%- product._id %>">
+                                            <i class="icofont-eye-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+</div>
+<!-- BEST SELLER PART END -->

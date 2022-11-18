@@ -1,0 +1,304 @@
+<%- include("../partials/header") %> 
+
+<!-- HERO SECTION PART START -->
+<div class="hero_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="herosection_content">
+                    <h2 class="text-light">Checkout</h2>
+                    <a href="/" class="btn border-radius-0 border-transparent">
+                        Home <i class="icofont-double-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HERO SECTION PART END--> 
+
+<div class="container">
+    <div class="mt-2">
+        <%- include("../components/alert-message") %>
+    </div>
+</div>
+
+<!-- toggle panel to login users -->
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"></div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                <div class="toggle_panel">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                        <i class="icofont-ui-user"></i> Returning Customer? Click here to login
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="login_form">
+                                        <form action="/checkout-login" method="POST">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" />
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER PART STRAT -->
+<form id="checkOutForm" action="/check-out/pay-on-delivery" method="post">
+    <div class="order_part">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="order_content">
+                        <div class="order_txt">
+                            <h2>Your Order</h2>
+                            <p style="font-size: 18px;">
+                                <span>For Abuja Delivery: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Within 24hrs</strong></span><br>
+                                <span>For Delivery Outside Abuja: &nbsp;&nbsp;&nbsp;&nbsp; <strong>3-5 days</strong></span>
+                            </p>
+                        </div>
+                        <div class="order_txt mt-2">
+                            <h5>Return Policy</h5>
+                            <p style="font-size: 18px;">
+                                Return applies to only items that have not been opened, altered or damaged. Items must be returned in their original packaging with all tags attached. Items that are returned without tags attached will not be accepted.
+                                <a href="/return-policy">Read more</a>
+                            </p>
+                        </div>
+                        <div class="payment_method pt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="payment_head text-uppercase" colspan="2">Payment method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="w-50">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="pay" id="radio1" value="payondelivery" checked />
+                                                <label class="form-check-label" for="credit_card">Pay On Delivery</label>
+                                            </div>
+                                        </th>
+                                        <td class="w-50">
+                                            <img src="/img/delivery-van3.png" alt="img" class="credit_card float-right" width="50" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="w-50">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="pay" value="paynow" id="radio2" />
+                                                <label class="form-check-label" for="paypal">Pay Now</label>
+                                            </div>
+                                        </th>
+                                        <td class="w-50">
+                                            <img src="/img/icon-pay-01.png" alt="img" class="credit_card float-right" width="30" />
+                                            <img src="/img/icon-pay-02.png" alt="img" class="credit_card float-right" width="30" />
+                                            <img src="/img/icon-pay-03.png" alt="img" class="credit_card float-right" width="30" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="order_cardTotal pt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="card_total text-uppercase" colspan="2">Order total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (cart) { %>
+                                        <tr>
+                                            <th class="discount">Total Items:</th>
+                                            <td class="text-right">
+                                                <span class="amount">
+                                                    <%- cart.totalQty %>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="subtotal">Subtotal:</th>
+                                            <td class="text-right">
+                                                <span class="amount">₦<%- cart.totalPrice %></span>
+                                            </td>
+                                        </tr>                                    
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td class="text-right total_num">
+                                                <span class="amount">₦<%- cart.totalPrice %></span>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="billing_content">                        
+                            <div class="billing_head text-uppercase">
+                                <h2>billing details</h2>
+                                <div class="billing_form">
+                                    <div class="form-row">
+                                        <!-- checkbox to allow user create account -->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12 justify-content-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="createAccount" id="create_account" style="width: 20px; height: 20px;" />
+                                                <label class="form-check-label ml-4" for="create_account" style="font-size: 18px;">Create an account for me immediately</label>
+                                                <!-- small helper text -->
+                                                <small id="create_account" class="form-text text-muted ml-4" style="font-size: 17px;">
+                                                    By checking this box, an account will automatically be created for you and you will be able to track your orders, check out faster, and add your shipping addresses.
+                                                    If you don't have an account yet, then checking this box is highly recommended.
+                                                    Ignore this if you already have an account.
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input value="<%- user ? user.name.firstName : '' %>" type="text" class="form-control border-radius-0" name="firstName" placeholder="First Name*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="lastName" value="<%- user ? user.name.lastName : '' %>" placeholder="Last Name*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="email" class="form-control border-radius-0" name="email" value="<%- user ? user.email : '' %>" placeholder="Email*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="phone" value="<%- user ? user.phone : '' %>" placeholder="Phone Number*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="city" value="<%- user ? user.city : '' %>" placeholder="City" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="address" value="<%- user ? user.address : '' %>" placeholder="Address*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="hidden" class="form-control border-radius-0" name="amount" value="<%- cart ? cart.totalPrice : '' %>" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
+                                            <textarea class="form-control border-radius-0" name="note" rows="3" placeholder="Note Of Order :"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- shipping Details - put a checkbox to select if billing details is same as shipping details -->
+                            
+                            <div class="billing_head text-uppercase mt-4">
+                                <h2>shipping details</h2>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12 justify-content-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="sameAsBilling" id="shipping_check" onclick="toggleShipping()" />
+                                        <label class="form-check-label ml-4" for="create_account">Same as billing details</label>
+                                        <!-- small helper text -->
+                                        <small id="create_account" class="form-text text-muted ml-4">
+                                            By checking this box, your shipping details will be the same as your billing details.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="shipping_form" id="shipping_form">
+                                    <div class="form-row">
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="shipping_firstName" value="" placeholder="First Name*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="shipping_lastName" value="" placeholder="Last Name*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="email" class="form-control border-radius-0" name="shipping_email" value="" placeholder="Email*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="shipping_phone" value="" placeholder="Phone Number*" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="shipping_city" value="" placeholder="City" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                            <input type="text" class="form-control border-radius-0" name="shipping_address" value="" placeholder="Full address*" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- submit button -->
+                            <div class="col-xl-6 offset-xl-3 justify-content-center mt-5">
+                                <button type="submit" class="btn border-transparent btn-lg btn-block border-radius-0">Place Order</button>
+                            </div>
+
+                        <!-- Notice: if you need info about redistribution click here -->
+                        <div class="notice text-center mt-4" style="font-size: 25px">
+                            <p>
+                                <small>
+                                    <strong>Notice:</strong> If you need info about buying in bulk for redistribution, you can call us or click <a href="/contact">here</a>
+                                </small>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<!-- ORDER PART END -->
+
+
+<script type="text/javascript">
+    function toggleShipping() {
+        var checkBox = document.getElementById("shipping_check");
+        var shippingForm = document.getElementById("shipping_form");
+        if (checkBox.checked == true) {
+            shippingForm.style.display = "none";
+        } else {
+            shippingForm.style.display = "block";
+        }
+    }
+
+    // if pay on delivery is selected, change the action of the form to /check-out/pay-on-delivery
+    // if pay now is selected, change the action of the form to /check-out/pay-now
+
+    document.getElementById('radio1').addEventListener('click', function() {
+                document.getElementById('checkOutForm').action = '/check-out/pay-on-delivery';
+            });
+
+    document.getElementById('radio2').addEventListener('click', function() {
+        document.getElementById('checkOutForm').action = '/check-out/paystack/pay';
+    });
+    
+</script>
+
+<%- include("../partials/footer") %>

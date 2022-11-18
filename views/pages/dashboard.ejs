@@ -1,0 +1,282 @@
+<%- include("../partials/header") %> 
+
+<style>
+    #messageHead:hover {
+        cursor: pointer;
+        color: rgb(115, 156, 247);
+    }
+    #messageHead {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    #orderTable {
+        font-size: 1rem;
+        width: 100%;
+    }
+</style>
+
+<!-- HERO SECTION PART START -->
+<div class="hero_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="herosection_content">
+                    <h2 class="text-light">Dashboard</h2>
+                    <a href="/" class="btn border-radius-0 border-transparent">
+                        Home <i class="icofont-double-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HERO SECTION PART END--> 
+
+<div class="container">
+    <div class="mt-2">
+        <%- include("../components/alert-message") %>
+    </div>
+</div>
+
+
+<!-- USER DASHBOARD PART START -->
+
+<!-- create a user Dashboard that has tabs to view orders and perform other tasks -->
+<!-- a vertical panel in a card -->
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">User Dashboard</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs nav_custom flex-column" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">DASHBOARD</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="inbox-tab" data-toggle="tab" href="#inbox" role="tab" aria-controls="inbox" aria-selected="false">INBOX</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">ORDERS</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false">ADDRESS</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">ACCOUNT DETAILS</a>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">Dashboard View</h4>
+                </div>
+                <div class="card-body" style="height: 80vh; overflow-y: scroll;">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                            <h3 class="mb-3">
+                                Welcome to your dashboard, <span><%- user.name.firstName %>!</span>
+                            </h3>
+    
+                            <p>
+                                From your account dashboard you can view your recent orders, manage your shipping and billing addresses and edit your password and account details.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="inbox" role="tabpanel" aria-labelledby="inbox-tab">
+                            <% if (messages.length > 0) { %>
+                                <% messages.forEach(function(message) { %>
+                                    <!-- display messages in a collapsible panel -->
+                                    <div class="accordion" id="messageAccordion">
+                                        <div class="card mb-1">
+                                            <div class="card-header" id="headingOne" style="height: 3rem;">
+                                                <a id="messageHead" data-toggle="collapse" data-target="#collapse<%- message._id %>" aria-expanded="true" aria-controls="collapse<%- message._id %>">
+                                                    <i class="icofont-envelope"></i>
+                                                    <%- message.subject %>
+                                                    <i class="icofont-rounded-expand"></i>
+                                                </a>                                                    
+                                            </div>
+                                            <div id="collapse<%- message._id %>" class="collapse" aria-labelledby="headingOne" data-parent="#messageAccordion">
+                                                <div class="card-body">
+                                                    <p>
+                                                        <%- message.message %>
+                                                    </p>
+                                                    <p>
+                                                        <small>
+                                                            <%- moment(message.createdAt).fromNow() %>
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } else { %>
+                                <p>
+                                    You have no messages
+                                </p>
+                            <% } %>
+                        </div>
+                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                            <!-- table for orders -->
+                            <table class="table table-striped table-responsive nowrap" id="orderTable">
+                                <caption>List of orders</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Order ID</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (orders.length > 0) { %>
+                                        <% orders.forEach(function(order) { %>
+                                            <tr>
+                                                <th scope="row">
+                                                    <%- order.orderNumber %> <br>
+                                                    <% if (order.status === "pending" || order.status === "cancel request" || order.status === "shipped" || order.status === "processing") { %>
+                                                        <p>If this order has been delivered to you, click <a id="confirmLink" href="/confirm-order/<%- order._id %>">here</a> to mark it as complete,                                                               
+                                                        <br> and please leave a review for the product.</p>
+                                                    <% } %>
+                                                    <script type="text/javascript">
+                                                        document.getElementById("confirmLink").onclick = function(e) {
+                                                            e.preventDefault();
+                                                            var url = this.href;
+                                                            var confirmBox = confirm("Are you sure you want to mark this order as complete?");
+                                                            if (confirmBox) {
+                                                                window.location.href = url;
+                                                            }
+                                                        };
+                                                    </script>
+                                                </th>
+                                                <td><%- moment(order.createdAt).format('DD MMM, YYYY, hh:mm A') %></td>
+                                                <td><span class="badge badge-success"><%- order.status %></td>
+                                                <td>₦<%- order.amount.toLocaleString(); %></td>
+                                                <td>
+                                                    <button data-toggle="modal" data-target="#order_<%- order._id %>" class="btn custom-btn mb-1">View</button>
+                                                    <!-- cancel order -->
+                                                    <% if (order.status === 'processing' || order.status === 'pending') { %>
+                                                        <button data-toggle="modal" data-target="#cancel_<%- order._id %>" class="btn custom-btn mb-1">Cancel</button>
+                                                    <% } %>
+                                                    <!-- print invoice button if order status is delivered -->
+                                                    <% if (order.status === 'delivered') { %>
+                                                        <a href="/print-invoice/<%- order._id %>" class="btn custom-btn mb-1" target="_blank">Print Invoice</a>
+                                                    <% } %>
+                                                    
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="5">
+                                                <p class="text-center">You have no orders</p>
+                                                <a href="/products" class="btn custom-btn ml-5">
+                                                    go shopping
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="mb-0">Billing Address</h4>
+                                    <address>
+                                        <%- user.email %>
+                                        <br>
+                                        <%- user.phone %>
+                                        <br>
+                                        <%- user.address %>
+                                        <br>
+                                        <%- user.city %>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                            <h4 class="p-b-40">Account Details</h4>
+                            <form id="checkOutForm" action="/update-account/<%- user._id %>" method="post">
+                                <h3>Billing Details</h3>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="text" class="form-control border-radius-0" name="firstName" value="<%- user.name.firstName %>" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="text" class="form-control border-radius-0" name="lastName" value="<%- user.name.lastName %>" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="email" class="form-control border-radius-0" name="email" value="<%- user.email %>" readonly />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="text" class="form-control border-radius-0" name="phone" value="<%- user.phone %>" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="text" class="form-control border-radius-0" name="address" value="<%- user.address %>" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="text" class="form-control border-radius-0" name="city" value="<%- user.city %>" />
+                                    </div>    
+                                </div>
+
+                                <h3 class="mt-5">Account Security</h3>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="password" class="form-control border-radius-0" name="currentPass" placeholder="Enter current password (leave blank to leave unchanged)" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                        <input type="password" class="form-control border-radius-0" name="newPass" placeholder="Enter new password (leave blank to leave unchanged)" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
+                                        <button type="submit" class="btn custom-btn">Update Account</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="mt-5">
+
+                                <!-- delete account form -->
+                                <form id="delete-account" action="/delete-account/<%- user._id %>" method="post">
+                                    <button class="btn custom-btn" type="submit">Delete Account</button>
+                                </form>
+
+                                <script>
+                                    document.getElementById("delete-account").addEventListener("submit", function(e) {
+                                        var confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+                                        if (!confirmation) {
+                                            e.preventDefault();
+                                            return false;
+                                        }
+                                        return true;
+                                    });
+
+                                </script>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- USER DASHBOARD PART END -->
+
+
+
+<%- include("../components/order-modal") %>
+
+<%- include("../components/cancel-order-modal") %>
+
+<%- include("../partials/footer") %>

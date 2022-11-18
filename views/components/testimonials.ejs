@@ -1,0 +1,51 @@
+<!-- TESTIMONIAL PART START -->
+	<div class="full-testimonial" id="full-testimonial">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 text-center">
+					<h3 class="section-title">Our Happy Customers</h3>
+					<p class="section-subtitle">
+                        Here are some of our happy customers that have bought from our store.
+                    </p>	
+				</div>
+			</div>
+
+			<div class="form-row align-items-center mt-5">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <div class="testimonial-img text-center">
+                        <% if (testimonies) { %>
+                            <% _.each(testimonies, function(testimony) { %>
+                        <div class="img">
+                            <img class="w-100" 
+                            src="
+                                <% if (testimony.image.url) { %>
+                                    <%- testimony.image.url %>
+                                <% } else { %>
+                                    https://res.cloudinary.com/mikejuwon/image/upload/v1665118097/default-avatar-profile_ucg0og.jpg
+                                <% } %>                            
+                            " 
+                            alt="<%- testimony.name %>" height="350">
+                        </div>
+                        <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-md-7" style="height: 350px">
+                    <div class="testimonial-text">
+                        <% if (testimonies) { %>
+                            <% _.each(testimonies, function(testimony) { %>
+                                <div class="testimonial-info">
+                                    <p>"<%- testimony.content %>"</p>
+                                    <h3><%- testimony.name %></h3>
+                                    <h4>Happy Customer</h4>
+                                </div>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+			</div>
+		</div>
+	</div>
+	<!-- TESTIMONIAL PART END -->

@@ -1,0 +1,154 @@
+<%- include("../partials/header") %>
+
+<!-- HERO SECTION PART START -->
+<div class="hero_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="herosection_content">
+          <h2 class="text-light">Contact Us</h2>
+          <a href="/" class="btn border-radius-0 border-transparent">
+            Home <i class="icofont-double-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- HERO SECTION PART END-->
+
+<div class="container">
+    <div class="mt-2">
+        <%- include("../components/alert-message") %>
+    </div>
+</div>
+
+<!-- CONTACT US PART START -->
+<div class="contact-us mt-5 mb-5" id="contact-us">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="contact-content">
+          <h3>Get in Touch</h3>
+          <p>
+            We are always ready to answer your questions and help you with your
+            needs. Please fill out the form below and we will get back to you as
+            soon as possible.
+          </p>
+          <div class="contact-details">
+            <div class="contact-info">
+              <i class="icofont-google-map"></i>
+              <h5>Address</h5>
+              <p>12 Parakou Street, Wuse 2, Abuja, Nigeria</p>
+            </div>
+            <div class="contact-info">
+              <i class="icofont-phone"></i>
+              <h5>Phone</h5>
+                <a href="tel:++234 908 599 7938">
+                    <p>+234 908 599 7938</p>
+                </a>
+            </div>
+            <div class="contact-info">
+              <i class="icofont-envelope"></i>
+              <h5>Email</h5>
+                <p>
+                    <a href="mailto:info@botaniclife.ng">
+                        info@botaniclife.ng
+                    </a>
+                </p>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+          <div class="contact-content">
+            <h3>Send Us a Message</h3>
+                <form action="/customer-message" method="post">
+                    <div class="form-row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="text" class="form-control border-radius-0" id="name" name="name" value="" placeholder="Name:" />
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="email" class="form-control border-radius-0" id="email" name="email" value="" placeholder="Email:" />
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="text" class="form-control border-radius-0" id="phone" name="phone" value="" placeholder="Phone:" />
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="text" class="form-control border-radius-0" id="subject" name="subject" value="" placeholder="Subject:" />
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
+                            <textarea class="form-control border-radius-0" id="message:" name="message" rows="3" placeholder="Message:"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn border-radius-0 mt-4">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- for product redistribution purpose fill the form below -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="contact-content">
+                <h3>For Product Redistribution</h3>
+                <p>
+                    If you are a retailer or distributor and you are interested in
+                    stocking our products, please fill out the form below and we
+                    will get back to you as soon as possible.
+                </p>
+                <form action="/redistribution-request" method="post">
+                    <div class="form-row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="text" class="form-control border-radius-0" id="name" name="name" value="" placeholder="Name:" />
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="email" class="form-control border-radius-0" id="email" name="email" value="" placeholder="Email:" />
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="text" class="form-control border-radius-0" id="phone" name="phone" value="" placeholder="Phone:" />
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="text" class="form-control border-radius-0" id="subject" name="subject" value="" placeholder="Subject: e.g Redistribution Request" />
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <input type="text" class="form-control border-radius-0" id="address" name="address" value="" placeholder="Full Contact Address:" />
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                            <textarea class="form-control border-radius-0" id="message" name="message" rows="3" placeholder="Message:"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn border-radius-0 mt-4">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- map showing address -->
+    <div class="row mt-5 mb-5">
+        <div class="col-md-12">
+            <div class="contact-content">
+                <h3>Our Location</h3>
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.829653877904!2d7.465643113809858!3d9.079278390701718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0ae59fd55e07%3A0xf8d483e058b3c736!2s12%20Parakou%20St%2C%20Wuse%202%20900288%2C%20Abuja!5e0!3m2!1sen!2sng!4v1665696993192!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+              
+              
+<%- include("../partials/footer") %> 

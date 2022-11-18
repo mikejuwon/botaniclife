@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Botanic Sales Invoice</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function () {
+            window.print();
+        };
+    </script>
+    <style>
+        #watermark {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #fff;
+          font-size: 2em;
+          font-weight: bold;
+          text-align: center;
+          /* width: 100%; */
+          z-index: 99;
+          opacity: 0.07;
+        }
+      </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <!-- BEGIN INVOICE -->
+            <div class="col-xs-12">
+                <div class="grid invoice">
+                    <div class="grid-body">
+                        <div class="invoice-title">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <img src="https://res.cloudinary.com/mikejuwon/image/upload/v1666708917/botaniclife-logo_zoyusw.png" alt="" width="150" height="35">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4 class="text-uppercase">sales invoice<br>
+                                    <span class="small">order number </span></h4>
+                                    <img src="<%- barcodeData %>" alt="">
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <span class="small">Scan QR code to get info about your order</span>
+                                    <img src="<%- qrCode %>" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Billing Information</h4>
+                                <address>
+                                    <strong><%- order.name.firstName %> <%- order.name.lastName %></strong><br>
+                                    <%- order.address %><br>
+                                    <%- order.email %><br>
+                                    <%- order.phone %><br>
+                                    <%- order.city %>
+                                </address>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <h4>Shipping Information</h4>
+                                <address>
+                                    <strong><%- order.shippingInfo.name.firstName %> <%- order.shippingInfo.name.lastName %></strong><br>
+                                    <%- order.shippingInfo.address %><br>
+                                    <%- order.shippingInfo.email %><br>
+                                    <%- order.shippingInfo.phone %><br>
+                                    <%- order.shippingInfo.city %>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <address>
+                                    <strong>Payment Method:</strong><br>
+                                    <%- order.paymentMethod %><br>
+                                    <% if (order.paymentDetails) { %>
+                                        <strong>Payment Detail:</strong><br>
+                                        <%- order.paymentDetails.cardType %> ending in <%- order.paymentDetails.last4 %><br>
+                                        <%- order.paymentDetails.bank %><br> 
+                                        <% } else { %>
+    
+                                        <% } %>
+                                    <%- order.email %><br>
+                                </address>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <address>
+                                    <strong>Order Date:</strong><br>
+                                    <%- moment(order.createdAt).format('DD-MMM-YYYY HH:ss A') %> 
+                                </address>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>ORDER SUMMARY</h4>
+                                <table class="table table-striped table-responsive">
+                                    <thead>
+                                        <tr class="line">
+                                            <td><strong>#</strong></td>
+                                            <td class="text-center"><strong>Item</strong></td>
+                                            <td class="text-center"><strong>Price</strong></td>
+                                            <td class="text-center"><strong>Quantity</strong></td>
+                                            <td class="text-center"><strong>Sub-total</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% _.each(order.products, function (product) { %>
+                                        <tr>
+                                            <td>
+                                                <!-- indexof -->
+                                                <%- _.indexOf(order.products, product) + 1 %>
+                                            </td>
+                                            <td class="text-center">
+                                                <img src="<%- product.item.image.url %>" alt="<%- product.item.name %>" width="40" height="50">
+                                                
+                                                <%- product.item.name %> 
+                                            </td>
+                                            <td class="text-center">₦<%- product.item.price.toLocaleString(); %></td>
+                                            <td class="text-center"><%- product.qty %></td>
+                                            <td class="text-center">₦<%- product.price.toLocaleString(); %></td>
+                                        </tr>
+                                        <% }); %>
+                                        <!-- <tr>
+                                            <td colspan="3"></td>
+                                            <td class="text-right"><strong>Taxes</strong></td>
+                                            <td class="text-right"><strong>N/A</strong></td>
+                                        </tr> -->
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td class="text-center"><strong>Total</strong></td>
+                                            <td class="text-center"><strong>₦<%- order.amount.toLocaleString(); %> </strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>									
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right identity">
+                                <p>Product Manager,<br><strong>BotanicLife</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END INVOICE -->
+        </div>
+    </div>
+
+    <div>
+        <img src="https://res.cloudinary.com/mikejuwon/image/upload/v1666708917/botaniclife-logo_zoyusw.png" alt="" id="watermark" width="300" height="100">
+    </div>
+
+  </body>
+</html>

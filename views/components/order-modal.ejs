@@ -1,0 +1,98 @@
+<!-- order modal -->
+<% if (orders.length > 0) { %>
+    <% _.each(orders, function(order) { %>
+        <div class="modal fade" id="order_<%- order._id %>" tabindex="-1" role="dialog" aria-labelledby="order-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-lg pt-5">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="order-modal-label">Order #<%- order.orderNumber %> </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Billing Information</h6>
+                                <address>
+                                    <strong><%- order.name.firstName %> <%- order.name.lastName %></strong><br>
+                                    <%- order.address %><br>
+                                    <%- order.email %><br>
+                                    <%- order.phone %><br>
+                                    <%- order.city %>
+                                </address>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Shipping Information</h6>
+                                <address>
+                                    <strong><%- order.shippingInfo.name.firstName %> <%- order.shippingInfo.name.lastName %></strong><br>
+                                    <%- order.shippingInfo.address %><br>
+                                    <%- order.shippingInfo.email %><br>
+                                    <%- order.shippingInfo.phone %><br>
+                                    <%- order.shippingInfo.city %>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Payment Information</h6>
+                                <address>
+                                    <strong>Payment Method:</strong><br>
+                                    <%- order.paymentMethod %><br>
+                                    <% if (order.paymentDetails) { %>
+                                        <strong>Payment Detail:</strong><br>
+                                        <%- order.paymentDetails.cardType %> ending in <%- order.paymentDetails.last4 %><br>
+                                        <%- order.paymentDetails.bank %><br> 
+                                        <% } else { %>
+    
+                                        <% } %>
+                                    <strong>Payment Status:</strong><br>
+                                    <%- order.paymentStatus %><br>
+                                    <strong>Payment Reference:</strong><br>
+                                    <%- order.paymentId %><br>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6 class="text-success">Order Details</h6>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% _.each(order.products, function(product) { %> 
+                                            <tr>
+                                                <td>
+                                                    <img src="<%- product.item.image.url %>" alt="" class="img-fluid" style="width: 50px; height: 50px;">
+                                                    <%- product.item.name %>
+                                                </td>
+                                                <td><%- product.qty %></td>
+                                                <td>₦<%- product.item.price %></td>
+                                                <td>₦<%- product.price %></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>Order Total</strong></td>
+                                            <td><strong>₦<%- order.amount %></strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+<% } %>

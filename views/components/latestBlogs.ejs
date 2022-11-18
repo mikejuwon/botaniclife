@@ -1,0 +1,72 @@
+<div class="full-latest-news">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3 class="section-title">Latest News</h3>
+                <p class="section-subtitle">
+                    Here are our latest news that you can read from our blog to get more information about our products and how you can stay healthy.
+                </p>
+                	<!--button to the blog page  -->
+                <a href="/blogs/1" class="btn custom-btn mt-3">View All Blogs</a>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <% if(blogs) { %>
+                <% _.each(blogs, function(blog) { %>
+                    <div class="col-md-4">
+                        <div class="latest-news-grid">
+                            <div class="news-img">
+                                <a href="/blog/<%- blog._id %>">
+                                    <img class="w-100" src="<%- blog.image.url %>" alt="BLOG" height="250">
+                                </a>
+                            </div>
+
+                            <div class="news-content">
+                                <div class="date-react">
+                                    <span class="date"><%- moment(blog.createdAt).format('DD MMMM YYYY') %></span>
+                                </div>
+                                <div class="fav_icon">
+                                    <span><i class="icofont-eye-alt"></i>
+                                        <% if (blog.views === 0) { %>
+                                            No views
+                                        <% } else if (blog.views === 1) { %>
+                                            1 view
+                                        <% } else { %>
+                                            <%- blog.views %> views
+                                        <% } %>
+                                    </span>
+                                    <span><i class="icofont-speech-comments"></i>
+                                        <% if (blog.comments && blog.comments == 0) { %>
+                                            No comments
+                                        <% } else if (blog.comments && blog.comments == 1) { %>
+                                            1 comment
+                                        <% } else if (blog.comments && blog.comments > 1) { %>
+                                            <%- blog.comments %> comments
+                                        <% } %>                                    
+                                    </span>
+                                    <span><i class="icofont-user"></i>Posted by Admin</span>
+                                </div>
+                                <div class="news-title">
+                                    <a href="/blog/<%- blog._id %>">
+                                        <h4>
+                                        <%- blog.title %>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div class="news-text">
+                                    <p>
+                                        <%- _.truncate(blog.content, { 'length': 300, 'separator': ' '}) %>
+                                    </p>
+                                </div>
+                                <div class="news-btn mt-3">
+                                    <a href="/blog/<%- blog._id %>" class="btn custom-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+</div>

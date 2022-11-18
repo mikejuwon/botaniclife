@@ -1,0 +1,228 @@
+<%- include("../partials/header") %> 
+
+<%- include("../components/page-title", {redirect: "products", title: product.name }) %>
+
+<div class="container">
+    <div class="mt-2">
+        <%- include("../components/alert-message") %>
+    </div>
+</div>
+
+    <!-- PRODUCT DETAILS PART START -->
+    <div class="product_details">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="product_img d-flex">
+                        <!-- <div class="small_img">
+                            <img class="w-100" src="/img/productdetails_imgthumbnail1.jpg" alt="" />
+                            <img class="w-100" src="/img/Productdetails_imgthamnail2.jpg" alt="" />
+                            <img class="w-100" src="/img/productdetails_imgthamnail3.jpg" alt="" />
+                        </div> -->
+                        <div class="big_img">
+                            <img class="w-100 img-fluid" src="<%- product.image.url %>" alt="<%- product.name %>" height="auto" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="producudetails_content">
+                        <h3>
+                            <%- product.name %>
+                        </h3>
+                        <div class="customer_review">
+                            <ul>
+                                <li>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                </li>
+                                <li>
+                                    <p>
+                                        <!-- badge success if in stock -->
+                                        <% if (product.quantity === 0) { %>
+                                            <span class="badge badge-danger">Out of Stock</span>
+                                        <% } else { %>
+                                            <span class="badge badge-success">
+                                                <%- product.quantity %> in stock
+                                            </span>
+                                        <% } %>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <strong>
+                            ₦<%- product.price.toLocaleString(); %> 
+                        </strong>
+                        <p>
+                            <%- product.shortDesc %>
+                        </p>
+
+                        <div class="add_to_cart d-flex">
+                            <form action="/add-to-cart/<%- product._id %>" method="POST">
+                                <div class="input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-sm btn-outline-secondary" type="button" id="button-addon1" onclick="decrementValue()">
+                                            <i class="icofont-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="number" name="quantity" id="quantity" class="form-control-sm" value="1" min="1" max="<%- product.quantity %>" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-outline-secondary" type="button" id="button-addon2" onclick="incrementValue()">
+                                            <i class="icofont-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- buttons inline -->
+                                <div class="d-flex mt-3">
+                                    <button type="submit" class="btn border-transparent btn-sm">
+                                        Add to Cart
+                                    </button>
+                                    <% if (inCart) { %>
+                                        <a href="/view-cart" class="btn btn-sm border-transparent ml-3">
+                                            Checkout
+                                        </a>
+                                    <% } %>
+                                </div>                                
+                            </form>
+
+                            <script>
+                                function incrementValue() {
+                                    var value = parseInt(document.getElementById('quantity').value, 10);
+                                    value = isNaN(value) ? 0 : value;
+                                    value++;
+                                    document.getElementById('quantity').value = value;
+                                }
+
+                                function decrementValue() {
+                                    var value = parseInt(document.getElementById('quantity').value, 10);
+                                    value = isNaN(value) ? 0 : value;
+                                    value < 1 ? value = 1 : '';
+                                    value--;
+                                    document.getElementById('quantity').value = value;
+                                }
+                                
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PRODUCT DETAILS PART END -->
+
+     <!-- PRODUCT TABBER START -->
+     <div class="product_tabber">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs nav_custom" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">DESCRIPTION</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="false">CONTENT</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="dosage-tab" data-toggle="tab" href="#dosage" role="tab" aria-controls="dosage" aria-selected="false">DOSAGE</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="faq-tab" data-toggle="tab" href="#faq" role="tab" aria-controls="faq" aria-selected="false">FREQUENTLY ASKED QUESTIONS</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-link-custom" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">REVIEWS</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <p>
+                                <%- product.fullDesc %>
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="content" role="tabpanel" aria-labelledby="content-tab">
+                            <p>
+                                <%- product.content %>
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="dosage" role="tabpanel" aria-labelledby="dosage-tab">
+                            <p>
+                                <%- product.dosage %>
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+                            <p>
+                                <%- product.faq %>
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            <p>
+                                <%- product.reviews %>
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PRODUCT TABBER END -->
+
+    <!-- BEST SELLER PART START -->
+    <div class="full-bestSeller">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-left">
+                    <h3 class="section-title">Other Products</h3> 
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <% if (otherProducts) { %>
+                    <% _.each(otherProducts, function(product) { %> 
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4">
+                            <div class="product" style="height: 350px;">
+                                <div class="product-img mt-3 mb-3">
+                                    <img src="<%- product.image.url %>" alt="" width="223" height="200">
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-details position-bottom-left">
+                                        <h3 class="product-name"><a href="/product/<%- product._id %>">
+                                            <%- product.name %>
+                                        </a></h3>
+                                        <!-- <span class="product-prev-price">$80 KG</span> -->
+                                        <span class="product-price">
+                                            ₦<%- product.price.toLocaleString(); %>
+                                        </span>
+                                    </div>
+                                    <div class="buttons">
+                                        <% if (product.quantity === 0) { %> 
+                                            <span class="sold-out-tag position-top-right">Sold Out</span>
+                                        <% } else { %>
+                                            <span class="sold-out-tag position-top-right">
+                                                Only <%- product.quantity %> left
+                                            </span>
+                                        <% } %>
+                                        <a href="/product/<%- product._id %>" class="btn custom-btn position-bottom-right"> View Product</a>
+                                    </div>
+    
+                                    <div class="icons position-center">
+                                        <div class="rounded-icon">
+                                            <a href="/product/<%- product._id %>">
+                                                <i class="icofont-eye-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <!-- BEST SELLER PART END -->
+
+<%- include("../partials/footer") %>

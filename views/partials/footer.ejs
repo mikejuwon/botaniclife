@@ -1,0 +1,352 @@
+	<!-- FOOTER TOP PART START -->
+	<div class="footer_top">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-5">
+					<div class="footer_widget">
+						
+						<div class="footer_widget_title">
+							<h2>
+								<a href="/" class="mb-3">
+									<img src="/img/botanic-logo-white.png" alt="IMG-LOGO" width="140" height="40">
+								</a>
+							</h2>
+						</div>
+						<ul class="footer_widget_content">
+							<li><span>Phone: &nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<a href="tel:+234 908 599 7938">+234 908 599 7938</a>
+							</li>
+							<li><span>Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<a href="mailto:info@botaniclife.ng">info@botaniclife.ng</a>
+							
+							</li>
+							<li><span>Address: &nbsp;</span> 12, Parakou Street, Wuse 2, Abuja</li>
+						</ul>
+
+						<div class="footer_social">
+							<ul class="footer_social_icons">
+								<li><a href="#"><i class="icofont-skype"></i></a></li>
+								<li><a href="#"><i class="icofont-facebook"></i></a></li>
+								<li><a href="#"><i class="icofont-twitter"></i></a></li>
+								<li><a href="#"><i class="icofont-whatsapp"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-5">
+					<div class="footer_widget">
+						<div class="footer_widget_title">
+							<h2>Customer support</h2>
+						</div>
+						<ul class="footer_widget_content">
+							<li><i class="icofont-double-right"></i><a href="/about">About us</a></li>
+							<li><i class="icofont-double-right"></i><a href="/contact">Redistribution</a></li>
+							<li><i class="icofont-double-right"></i><a href="/terms-and-conditions">Terms & Conditions</a></li>
+							<li><i class="icofont-double-right"></i><a href="/product-returns">Product Returns</a></li>
+							<li><i class="icofont-double-right"></i><a href="/wholesale-policy">Wholesale Policy</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-5">
+					<div class="footer_widget">
+						<div class="footer_widget_title">
+							<h2>quick links</h2>
+						</div>
+						<ul class="footer_widget_content">
+							<li><i class="icofont-double-right"></i><a href="/home">Home</a></li>
+							<li><i class="icofont-double-right"></i><a href="/products">Products</a></li>
+							<li><i class="icofont-double-right"></i><a href="/contact">Contact</a></li>
+							<li><i class="icofont-double-right"></i><a href="/blogs/1">Blogs</a></li>
+							<% if (user) { %>
+								<li><i class="icofont-double-right"></i><a href="/dashboard">My Dashboard</a></li>
+							<% } else { %>
+								<li><i class="icofont-double-right"></i><a href="/login">Login</a></li>
+							<% } %>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- FOOTER TOP PART END -->
+
+	<!-- FOOTER BOTTOM PART START -->
+	<div class="footer_bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-12">
+					<div class="footer_txt text-center">
+						<p><img src="/img/botaniclife-logo.png" alt="IMG-LOGO" width="70" height="15"> <br>&copy; 2022 All Rights Reserved</p>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- FOOTER BOTTOM PART END -->
+
+	<script type="text/javascript">
+		// alert will be closed after 10 seconds
+		setTimeout(function() {
+			$('.alert').alert('close');
+		}, 10000);
+	</script>
+
+	<script src="https://www.google.com/recaptcha/api.js"></script>
+
+	<!-- jQuery -->
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<!-- Slick slider -->
+	<script src="/js/slick.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="/js/bootstrap.min.js"></script>
+
+	<!--===============================================================================================-->
+	<script src="/vendor/revolution/js/jquery.themepunch.tools.min.js"></script>
+	<script src="/vendor/revolution/js/jquery.themepunch.revolution.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.video.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+	<script src="/vendor/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+	<script src="/js/revo-custom.js"></script>
+    
+	<!-- scripts -->
+	<script src="/js/scripts.js"></script>
+	<script>
+		$(".banner-slider").slick({
+			infinite: false,
+			autoplay: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplaySpeed: 5000,
+			arrows:false,
+			dots: true,
+		});
+
+		$(".slider").slick({
+			infinite: false,
+			slidesToShow: 4,
+			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 2000,
+			arrows:false,
+			dots: true,
+
+		  // the magic
+		  responsive: [{
+		  	breakpoint: 1500,
+		  	settings: {
+		  		slidesToShow: 4,
+		  		infinite: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 1201,
+		  	settings: {
+		  		slidesToShow: 3,
+		  		dots: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 991,
+		  	settings: {
+		  		slidesToShow: 2,
+		  		dots: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 600,
+		  	settings: {
+		  		slidesToShow: 1,
+		  		dots: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 300,
+		  	settings: {
+		  		slidesToShow: 1,
+		  		dots: true
+		  	},
+		  }]
+		});
+
+
+		$(".partner-slider").slick({
+		  // normal options...
+		  infinite: false,
+		  slidesToShow: 5,
+		  slidesToScroll: 2,
+		  autoplay: true,
+		  autoplaySpeed: 2000,
+		  infinite: true,
+		  arrows:true,
+
+		  // the magic
+		  responsive: [{
+
+		  	breakpoint: 1500,
+		  	settings: {
+		  		slidesToShow: 4,
+		  		infinite: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 1201,
+		  	settings: {
+		  		slidesToShow: 3,
+		  		dots: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 991,
+		  	settings: {
+		  		slidesToShow: 2,
+		  		dots: true,
+		  		arrows:false,
+		  	}
+
+		  }, {
+		  	breakpoint: 600,
+		  	settings: {
+		  		slidesToShow: 2,
+		  		dots: true,
+		  		arrows:false
+		  	}
+
+		  }]
+		});
+
+
+
+		$(".product-slider").slick({
+		  // normal options...
+		  infinite: false,
+		  slidesToShow: 5,
+		  slidesToScroll: 2,
+		  autoplay: true,
+		  autoplaySpeed: 2000,
+		  infinite: true,
+		  arrows:true,
+
+		  // the magic
+		  responsive: [{
+
+		  	breakpoint: 1024,
+		  	settings: {
+		  		slidesToShow: 3,
+		  		infinite: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 600,
+		  	settings: {
+		  		slidesToShow: 2,
+		  		dots: true
+		  	}
+
+		  }, {
+
+		  	breakpoint: 300,
+		      settings: "unslick" // destroys slick
+
+		  }]
+		});
+
+		//for testimonial
+		$('.testimonial-img').slick({
+			speed: 500,
+			arrows: false,
+			autoplay: true,
+			autoplaySpeed: 3500,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			asNavFor: '.testimonial-text',
+			centerMode: true,
+			centerPadding: 0,
+			responsive: [
+			{
+				breakpoint: 1200,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					centerMode: true,
+					focusOnSelect: true,
+					centerPadding: 0,
+				}
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					centerMode: true,
+					focusOnSelect: true,
+					centerPadding: 0,
+				}
+			},
+			{
+				breakpoint: 575,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					centerMode: true,
+					focusOnSelect: true,
+					centerPadding: 0,
+				}
+			}
+			]
+		});
+
+
+
+		$('.testimonial-text').slick({
+			infinite: false,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 3500,
+			infinite: true,
+			arrows:true,
+			centerPadding: 0,
+			dots: false,
+			speed: 1000,
+			asNavFor: '.testimonial-img',
+			prevArrow: '<i class="icofont-double-right"></i>',
+			nextArrow: '<i class="icofont-double-left"></i>',
+
+			responsive: [
+			{
+				breakpoint: 991,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				}
+			},
+			{
+				breakpoint: 767,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				}
+			}
+			]
+		});
+
+	</script>
+</body>
+</html>

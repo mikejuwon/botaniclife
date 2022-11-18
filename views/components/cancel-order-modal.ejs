@@ -1,0 +1,49 @@
+<!-- order modal -->
+<% if (orders.length > 0) { %>
+    <% _.each(orders, function(order) { %>
+        <div class="modal fade" id="cancel_<%- order._id %>" tabindex="-1" role="dialog" aria-labelledby="order-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-md pt-5">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="order-modal-label">Order #<%- order.orderNumber %> </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6 class="text-success">Cancel Order</h6>
+                                <!-- form to get reason for cancelling order -->
+                                <form id="cancel_<%- order._id %>" action="/cancel-order/<%- order._id %>" method="POST">
+                                    <div class="form-group">
+                                        <label for="reason">Reason for Cancellation</label>
+                                        <textarea class="form-control" id="reason" name="reason" rows="3" 
+                                        placeholder="State your reason for cancellation here, your request will be processed and we'll get back to you shortly.. e.g Accidental Order, Already bought from a nearby pharmacy store...etc"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Cancel My Order</button>
+                                </form>
+
+                                <script type="text/javascript">
+                                    // cancel order
+                                    document.getElementById("cancel_<%- order._id %>").addEventListener("submit", function(e) {
+                                    var confirmation = confirm('Are you sure you wish to cancel this order? - ' + 
+                                        '#<%- order.orderNumber %>?' + ' ' + ' This action will not be reversible.');
+                                    if (!confirmation) {
+                                        e.preventDefault();
+                                        return false;
+                                    }
+                                    });
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+<% } %>

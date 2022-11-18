@@ -1,0 +1,146 @@
+<%- include("../partials/header") %> 
+
+<!-- HERO SECTION PART START -->
+<div class="hero_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="herosection_content">
+                    <h2 class="text-light">Cart Overview</h2>
+                    <a href="/" class="btn border-radius-0 border-transparent">
+                        Home <i class="icofont-double-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HERO SECTION PART END-->
+
+<div class="container">
+    <div class="mt-2">
+        <%- include("../components/alert-message") %>
+    </div>
+</div>
+
+<!-- CART OVERVIEW PART START -->
+<div class="cart_overview">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr class="cartoverview_title">
+                            <th>IMAGES</th>
+                            <th>PRODUCT</th>
+                            <th>PRICE</th>
+                            <th>QUANTITY</th>
+                            <th>TOTAL</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (cartItems.length > 0) { %>
+                            <% _.each(cartItems, function(item) { %> 
+                                <tr>
+                                    <th scope="row">
+                                        <div class="thamnail_img">
+                                            <a href="/product/<%- item.item._id %>">
+                                                <img src="<%- item.item.image.url %>" alt="" width="120" height="110" />
+                                            </a>
+                                        </div>
+                                    </th>
+                                    <td class="align-middle"><b><%- item.item.name %></b></td>
+                                    <td class="align-middle">₦<%- item.item.price.toLocaleString(); %></td>
+                                    <td class="align-middle"><%- item.qty %></td>
+                                    
+                                    <td class="align-middle">₦<%- item.price.toLocaleString(); %></td>
+                                    <td class="align-middle">
+                                        <form id="remove_<%- item.item._id %>" action="/remove-from-cart/<%- item.item._id %>" method="post">
+                                            <button type="submit" class="btn border-transparent btn-sm"><i class="icofont-trash"></i></button>
+                                        </form>
+
+                                        <script type="text/javascript">
+                                            document.getElementById("remove_<%- item.item._id %>").addEventListener("submit", function(e) {
+                                                var confirmation = confirm('Are you sure you wish to remove this product - ' + 
+                                                    '<%- item.item.name %>?' + ' This action cannot be undone.');
+                                                if (!confirmation) {
+                                                    e.preventDefault();
+                                                    return false;
+                                                }
+                                            });
+                                        </script>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="6" class="text-center">No items in cart</td>
+                            </tr>
+                        <% } %>                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CART OVERVIEW PART END -->
+
+<!-- COUPON PART START -->
+<div class="coupon_part">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                <div class="serach_btn">
+                    <form action="#">
+                        <div class="search_ber">
+                            <input type="text" class="form-control search_button" id="serach_button" name="serach_button" value="" placeholder="Apply Coupon If You Have" />
+                            <div class="coupon_btn">
+                                <a href="#" class="border-radius-0">APPLY COUPON</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+                <div class="order_cardTotal">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="card_total text-uppercase" colspan="2">Cart total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (cart) { %> 
+                            <tr>
+                                <th scope="row">Total Quantity:</th>
+                                <td class="text-right">
+                                    <%- cart.totalQty %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total Amount:</th>
+                                <td class="text-right total_num">
+                                    ₦<%- cart.totalPrice.toLocaleString(); %>
+                                </td>
+                            </tr>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="2" class="text-center">No items in cart</td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="chechout_btn text-right">
+                    <a href="/checkout" class="btn border-radius-0 border-transparent">Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- COUPON PART END -->
+
+
+
+<%- include("../partials/footer") %>
