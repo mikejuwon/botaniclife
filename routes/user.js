@@ -1,8 +1,8 @@
-import express from "express";
+const express = require("express");
 
 const router = express.Router();
 
-import {
+const {
   forgotPasswordPage,
   forgotPassword,
   loginPage,
@@ -19,8 +19,8 @@ import {
   deleteAccount,
   deliveredOrder,
   userLoginCheckout,
-} from "../controllers/authController";
-import { requireSignIn } from "../middleware";
+} = require("../controllers/authController");
+const { requireSignIn } = require("../middleware");
 
 router.get("/login", loginPage);
 router.get("/register", registerPage);
@@ -43,5 +43,6 @@ router.post("/update-account/:id", requireSignIn, updateAccount);
 router.get("/confirm-order/:id", requireSignIn, deliveredOrder);
 
 router.post("/delete-account/:id", requireSignIn, deleteAccount);
+
 
 module.exports = router;

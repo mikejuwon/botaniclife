@@ -1,13 +1,14 @@
 // import { expressjwt } from "express-jwt";
-import jwt from "jsonwebtoken";
-import User from "../models/users";
+// import jwt from "jsonwebtoken";
+// import User from "../models/users";
+const jwt = require('jsonwebtoken');
 
 // export const requireSignIn = expressjwt({
 //   secret: `${process.env.JWT_SECRET}`,
 //   algorithms: ["HS256"],
 // });
 
-export const requireSignIn = async (req, res, next) => {
+const requireSignIn = async (req, res, next) => {
   // get token from the cookie
   const token = req.cookies.token;
   if (!token) {
@@ -45,3 +46,5 @@ export const requireSignIn = async (req, res, next) => {
 //   });
 //   }
 // };
+
+module.exports = { requireSignIn };

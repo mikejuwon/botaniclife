@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 const conn = require("../config/database");
 
 const redistSchema = new mongoose.Schema(
@@ -15,4 +15,4 @@ const redistSchema = new mongoose.Schema(
 
 const Redistribution = conn.botaniclife.model("Redistribution", redistSchema);
 
-export default Redistribution;
+module.exports = Redistribution;

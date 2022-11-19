@@ -1,8 +1,8 @@
-import express from "express";
+const express = require("express");
 
 const router = express.Router();
 
-import {
+const {
   addToCart,
   removeFromCart,
   checkOutPage,
@@ -13,8 +13,7 @@ import {
   verifyPayment,
   printInvoice,
   trackOrderPage,
-} from "../controllers/productController";
-import { requireSignIn } from "../middleware";
+} = require("../controllers/productController");
 
 router.post("/add-to-cart/:id", addToCart);
 router.post("/remove-from-cart/:id", removeFromCart);

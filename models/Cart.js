@@ -61,4 +61,4 @@ const Cart = function (oldCart) {
     
 };
 
-export default Cart;
+module.exports = Cart;

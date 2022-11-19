@@ -1,9 +1,9 @@
-import express from "express";
+const express = require("express");
 
 const router = express.Router();
-
+// import { Router as router } from 'express';
 // controllers
-import {
+const {
   homePage,
   aboutPage,
   productsPage,
@@ -27,7 +27,8 @@ import {
   termsAndConditions,
   productReturns,
   wholesalePolicy,  
-} from "../controllers/pageController";
+} = require ("../controllers/pageController");
+
 
 router.get("/", homePage);
 

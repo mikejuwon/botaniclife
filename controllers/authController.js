@@ -1,14 +1,13 @@
-const conn = require("../config/database");
-import jwt from 'jsonwebtoken';
-import sgMail from "@sendgrid/mail";
-// import twilio from "twilio";
-import {hashPassword, comparePassword} from '../helpers/auth';
-import _ from "lodash";
-import moment from "moment";
-import User from '../models/users';
-import Order from '../models/orders';
-import Cart from '../models/Cart';
-const ObjectID = require("mongodb").ObjectId;
+const conn = require('../config/database.js');
+const _ = require("lodash");
+const Cart = require("../models/Cart");
+const Order = require("../models/orders");
+const User = require("../models/users");
+const jwt = require('jsonwebtoken');
+const sgMail = require("@sendgrid/mail");
+const {hashPassword, comparePassword} = require('../helpers/auth');
+const moment = require("moment");
+
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // const accountSid = 'AC4aa827e21a65200baf1e546878866b74'; // Your Account SID from www.twilio.com/console
@@ -17,7 +16,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // const client = new twilio(accountSid, authToken);
 
 
-export const loginPage = (req, res) => {
+ const loginPage = (req, res) => {
     res.render("auth/login", {
         flash: req.flash("error"),
         errors: [],
@@ -25,7 +24,7 @@ export const loginPage = (req, res) => {
     });
 };
 
-export const registerPage = (req, res) => {
+ const registerPage = (req, res) => {
     res.render("auth/register", {
         flash: req.flash("error"),
         errors: [],
@@ -33,7 +32,7 @@ export const registerPage = (req, res) => {
     });
 };
 
-export const userRegister = async (req, res) => {
+ const userRegister = async (req, res) => {
     const {firstName, lastName, email, password, phone, address, city} = req.body;
     
     const errors = [];
@@ -135,7 +134,7 @@ export const userRegister = async (req, res) => {
 }
 };
 
-export const userLogin = async (req, res) => {
+ const userLogin = async (req, res) => {
     const {email, password} = req.body;
     try {
         const user = await User.findOne({email});
@@ -164,7 +163,7 @@ export const userLogin = async (req, res) => {
     }
 };
 
-export const userLoginCheckout = async (req, res) => {
+ const userLoginCheckout = async (req, res) => {
     const {email, password} = req.body;
     try {
         const user = await User.findOne({email});
@@ -192,7 +191,7 @@ export const userLoginCheckout = async (req, res) => {
         return res.redirect("../checkout");
     }
 };
-export const userVerify = async (req, res) => {
+ const userVerify = async (req, res) => {
     const {token} = req.params;
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -216,7 +215,7 @@ export const userVerify = async (req, res) => {
     }
 };
 
-export const userLogout = (req, res) => {
+ const userLogout = (req, res) => {
     res.clearCookie("token");
     // set the session.user to null
     req.session.user = null;
@@ -224,7 +223,7 @@ export const userLogout = (req, res) => {
     return res.redirect("/login");
 };
 
-export const forgotPasswordPage = (req, res) => {
+ const forgotPasswordPage = (req, res) => {
     res.render("auth/forgot-password", {
         flash: req.flash("error"),
         errors: [],
@@ -232,7 +231,7 @@ export const forgotPasswordPage = (req, res) => {
     });
 };
 
-export const forgotPassword = async (req, res) => {
+ const forgotPassword = async (req, res) => {
     const {email} = req.body;
     try {
         const user = await User.findOne({email});
@@ -271,7 +270,7 @@ export const forgotPassword = async (req, res) => {
     }
 };
 
-export const resetPasswordPage = async (req, res) => {
+ const resetPasswordPage = async (req, res) => {
     const {token} = req.params;
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -293,7 +292,7 @@ export const resetPasswordPage = async (req, res) => {
     }
 };
 
-export const resetPassword = async (req, res) => {
+ const resetPassword = async (req, res) => {
     const {token} = req.params;
     const {password} = req.body;
     try {
@@ -331,7 +330,7 @@ export const resetPassword = async (req, res) => {
     }
 };
 
-export const userDashboard = async (req, res) => {
+ const userDashboard = async (req, res) => {
     const user = req.session.user;
     let cart = new Cart(req.session.cart ? req.session.cart : {});
     let cartItems = cart.generateArray();
@@ -357,7 +356,7 @@ export const userDashboard = async (req, res) => {
     }
 };
 
-export const cancelOrder = async (req, res) => {
+ const cancelOrder = async (req, res) => {
     const {id} = req.params;
     const {reason} = req.body;
     const user = await User.findOne({ _id: req.session.user._id });
@@ -427,7 +426,7 @@ export const cancelOrder = async (req, res) => {
     }
 };
 
-export const updateAccount = async (req, res) => {
+ const updateAccount = async (req, res) => {
     const { id } = req.params;
     const {firstName, lastName, phone, address, city, currentPass, newPass} = req.body;
     // user's orders
@@ -484,7 +483,7 @@ export const updateAccount = async (req, res) => {
     }
 };
 
-export const deleteAccount = async (req, res) => {
+ const deleteAccount = async (req, res) => {
     const { id } = req.params;
     try {
         const user = await User.findById(id);
@@ -527,7 +526,7 @@ export const deleteAccount = async (req, res) => {
     }
 };
 
-export const deliveredOrder = async (req, res) => {
+ const deliveredOrder = async (req, res) => {
     const { id } = req.params;
     try {
         const order = await Order.findById(id);
@@ -578,4 +577,10 @@ export const deliveredOrder = async (req, res) => {
         req.flash("error", error.message);
         return res.redirect("/dashboard");
     }
+};
+
+module.exports = {
+    loginPage, registerPage, userRegister, userLogin, userLogout, userDashboard, deleteAccount, deliveredOrder,
+    cancelOrder, resetPasswordPage, resetPassword, forgotPasswordPage, forgotPassword, updateAccount,
+    userLoginCheckout, userVerify
 };

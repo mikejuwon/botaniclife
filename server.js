@@ -1,24 +1,32 @@
-import express from 'express';
-import session from 'express-session';
-import {readdirSync} from 'fs';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-// import logger from 'morgan';
-import ejs from 'ejs';
-import path from 'path';
-import flash from 'connect-flash';
-// import MongoStore for session storage in MongoDB and initialize it with the connection to the database
-import MongoStore from 'connect-mongo';
-import cookieParser from 'cookie-parser';
-import { truncateSync } from 'fs';
-
-
 require('dotenv').config();
+const express = require('express');
+const session = require('express-session');
+const readdirSync = require('fs').readdirSync;
+const bodyParser = require('body-parser');
+const cors = require('cors');
+// import logger from 'morgan';
+const ejs = require('ejs');
+const path = require('path');
+const flash = require('connect-flash');
+// import MongoStore for session storage in MongoDB and initialize it with the connection to the database
+const MongoStore = require('connect-mongo');
+const cookieParser = require('cookie-parser');
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// import dotenv config and use it to load the environment variables from the .env file
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 const app = express();
 
 // database connection
 require('./config/database');
+// import './config/database.js';
+
 
 // set cookie parser with 7 days expiration
 app.use(cookieParser());
@@ -64,8 +72,8 @@ app.engine('ejs', ejs.renderFile);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-//autoload routes
-readdirSync('./routes').map((r) => app.use('/', require(`./routes/${r}`)))
+//routes using readdir to read all the files in the routes folder and import them
+readdirSync('./routes').map((r) => app.use('/', require('./routes/' + r)));
 
 
 const port = process.env.PORT || 8000;

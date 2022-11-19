@@ -1,17 +1,14 @@
-const conn = require("../config/database");
-import _ from "lodash";
-import request from "request";
+const conn =  require('../config/database.js');
+const _ = require("lodash");
+const request = require("request");
 // ObjectID from mongodb
 const ObjectID = require("mongodb").ObjectId;
-import moment from "moment";
-import Cart from "../models/Cart";
-import User from "../models/users";
-import Redistribution from "../models/redistribution";
+const moment = require("moment");
+const Cart = require("../models/Cart");
+const User = require("../models/users");
+const Redistribution = require("../models/redistribution");
 
-
-
-
-export const homePage = async (req, res) => {
+ const homePage = async (req, res) => {
   // res.render(path.join(__dirname, "../views/index.html"));
 
   // check for user
@@ -81,7 +78,7 @@ export const homePage = async (req, res) => {
   });
 };
 
-export const cartPage = async (req, res) => {
+ const cartPage = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -95,7 +92,7 @@ export const cartPage = async (req, res) => {
   });
 };
 
-export const aboutPage = (req, res) => {
+ const aboutPage = (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -107,7 +104,7 @@ export const aboutPage = (req, res) => {
   });
 };
 
-export const productsPage = async (req, res) => {
+ const productsPage = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -126,7 +123,7 @@ export const productsPage = async (req, res) => {
   });
 };
 
-export const contactPage = (req, res) => {
+ const contactPage = (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -140,7 +137,7 @@ export const contactPage = (req, res) => {
   });
 };
 
-export const singleProduct = async (req, res) => {
+ const singleProduct = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -180,7 +177,7 @@ export const singleProduct = async (req, res) => {
   });
 };
 
-export const blogPage = async (req, res) => {
+ const blogPage = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -214,7 +211,7 @@ export const blogPage = async (req, res) => {
   
 };
 
-export const blogSingle = async (req, res) => {
+ const blogSingle = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -256,7 +253,7 @@ export const blogSingle = async (req, res) => {
   });
 };
 
-export const addComment = async (req, res) => {
+ const addComment = async (req, res) => {
   if (
     !req.body.captcha ||
     req.body.captcha === "" ||
@@ -323,7 +320,7 @@ export const addComment = async (req, res) => {
   
 };
 
-export const addReply = async (req, res) => {
+ const addReply = async (req, res) => {
   const blogId = new ObjectID(req.params.blogId);
   const { name, email, reply } = req.body;
   const comment = await conn.botanicAdmin.collection('comments').findOne({ _id: new ObjectID(req.params.commentId) });
@@ -357,7 +354,7 @@ export const addReply = async (req, res) => {
     });
 };
 
-export const nextPost = async (req, res) => {
+ const nextPost = async (req, res) => {
   // get the id of the current post
   const currentPostID = req.params.id;
   // get the next post
@@ -372,7 +369,7 @@ export const nextPost = async (req, res) => {
   }
 };
 
-export const previousPost = async (req, res) => {
+ const previousPost = async (req, res) => {
   // get the id of the current post
   const currentPostID = req.params.id;
   // get the previous post
@@ -387,7 +384,7 @@ export const previousPost = async (req, res) => {
   }
 };
 
-export const shareOnFacebook = async (req, res) => {
+ const shareOnFacebook = async (req, res) => {
   // get the id of the current post
   const currentPostID = req.params.id;
 
@@ -396,7 +393,7 @@ export const shareOnFacebook = async (req, res) => {
   res.redirect(facebookUrl);
 };
 
-export const shareOnTwitter = async (req, res) => {
+ const shareOnTwitter = async (req, res) => {
   // get the id of the current post
   const currentPostID = req.params.id;
 
@@ -405,7 +402,7 @@ export const shareOnTwitter = async (req, res) => {
   res.redirect(twitterUrl);
 };
 
-export const shareOnLinkedIn = async (req, res) => {
+ const shareOnLinkedIn = async (req, res) => {
   // get the id of the current post
   const currentPostID = req.params.id;
 
@@ -414,7 +411,7 @@ export const shareOnLinkedIn = async (req, res) => {
   res.redirect(linkedInUrl);
 };
 
-export const shareOnWhatsApp = async (req, res) => {
+ const shareOnWhatsApp = async (req, res) => {
   // get the id of the current post
   const currentPostID = req.params.id;
 
@@ -423,7 +420,7 @@ export const shareOnWhatsApp = async (req, res) => {
   res.redirect(whatsAppUrl);
 };
 
-export const shareOnSkype = async (req, res) => {
+ const shareOnSkype = async (req, res) => {
   // get the id of the current post
   const currentPostID = req.params.id;
 
@@ -432,7 +429,7 @@ export const shareOnSkype = async (req, res) => {
   res.redirect(skypeUrl);
 };
 
-export const errorPage = async (req, res) => {
+ const errorPage = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -446,23 +443,23 @@ export const errorPage = async (req, res) => {
   })
 };
 
-export const returnPolicy = async (req, res) => {
+ const returnPolicy = async (req, res) => {
   res.redirect('/error');
 };
 
-export const termsAndConditions = async (req, res) => {
+ const termsAndConditions = async (req, res) => {
   res.redirect('/error');
 };
 
-export const productReturns = async (req, res) => {
+ const productReturns = async (req, res) => {
   res.redirect('/error');
 };
 
-export const wholesalePolicy = async (req, res) => {
+ const wholesalePolicy = async (req, res) => {
   res.redirect('/error');
 };
 
-export const redistributionRequest = async (req, res) => {
+ const redistributionRequest = async (req, res) => {
   const { name, email, phone, address, subject, message } = req.body;
 
   if (!name || !email || !phone || !address || !subject || !message) {
@@ -484,3 +481,9 @@ export const redistributionRequest = async (req, res) => {
     return res.redirect('/contact');
   }
 };
+
+module.exports = {
+  homePage, cartPage, aboutPage, productsPage, singleProduct, contactPage, blogPage, blogSingle, 
+  addComment, addReply, nextPost, previousPost, shareOnFacebook, shareOnTwitter, shareOnLinkedIn, 
+  shareOnWhatsApp, shareOnSkype, errorPage, returnPolicy, termsAndConditions, 
+  productReturns, wholesalePolicy, redistributionRequest };

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 // connect to database from the .env file
 mongoose.botaniclife = mongoose.createConnection(process.env.PROD_DATABASE_URI, {

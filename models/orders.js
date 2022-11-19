@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 const conn = require("../config/database");
 
 const ordersSchema = new mongoose.Schema({
@@ -33,4 +33,4 @@ const ordersSchema = new mongoose.Schema({
 
 const Order = conn.botaniclife.model("Order", ordersSchema);
 
-export default Order;
+module.exports = Order;

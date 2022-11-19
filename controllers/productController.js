@@ -1,17 +1,17 @@
-const conn = require("../config/database");
-import _ from "lodash";
+const conn = require('../config/database.js');
+const _ = require("lodash");
 const ObjectID = require("mongodb").ObjectId;
-import Cart from "../models/Cart";
-import Order from "../models/orders";
-import User from "../models/users";
-import jwt from 'jsonwebtoken';
-import sgMail from "@sendgrid/mail";
-import {hashPassword, comparePassword} from '../helpers/auth';
-import moment from "moment";
-import validator from "validator";
-import request from "request";
-import QRCode from "qrcode";
-import bwipjs from "bwip-js";
+const Cart = require("../models/Cart");
+const Order = require("../models/orders");
+const User = require("../models/users");
+const jwt = require('jsonwebtoken');
+const sgMail = require("@sendgrid/mail");
+const {hashPassword, comparePassword} = require('../helpers/auth');
+const moment = require("moment");
+const validator = require("validator");
+const request = require("request");
+const QRCode = require("qrcode");
+const bwipjs = require("bwip-js");
 
 const paystack = require("../config/paystack")(request);    
 
@@ -233,7 +233,7 @@ async function sendMailAnonymous (email, firstName, lastName, subject, result, r
 };
 
 
-export const addToCart = async (req, res) => {
+ const addToCart = async (req, res) => {
   const user = req.session.user;
   const productID = req.params.id;
   const quantity = req.body.quantity;
@@ -266,7 +266,7 @@ export const addToCart = async (req, res) => {
   }
 };
 
-export const removeFromCart = async (req, res) => {
+ const removeFromCart = async (req, res) => {
   const user = req.session.user;
   const productID = req.params.id;
   const cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -288,7 +288,7 @@ export const removeFromCart = async (req, res) => {
   res.redirect("../view-cart");
 };
 
-export const checkOutPage = async (req, res) => {
+ const checkOutPage = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -302,7 +302,7 @@ export const checkOutPage = async (req, res) => {
   });
 };
 
-export const payOnDelivery = async (req, res) => {
+ const payOnDelivery = async (req, res) => {
   const user = req.session.user;
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
@@ -512,7 +512,7 @@ export const payOnDelivery = async (req, res) => {
 }
 };
 
-export const activateAccountPage = async (req, res) => {
+ const activateAccountPage = async (req, res) => {
   const { id, token } = req.params;
 
   // check if user is already verified
@@ -534,7 +534,7 @@ export const activateAccountPage = async (req, res) => {
   }
 }
 
-export const activateAccount = async (req, res) => {
+ const activateAccount = async (req, res) => {
   const { id, token } = req.params;
   const { email, password } = req.body;
 
@@ -576,7 +576,7 @@ export const activateAccount = async (req, res) => {
 };
 
 // paying with paystack
-export const payWithPaystack = async (req, res) => {
+ const payWithPaystack = async (req, res) => {
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
 
@@ -716,7 +716,7 @@ export const payWithPaystack = async (req, res) => {
 };
 
 // verify payment
-export const verifyPayment = async (req, res) => {
+ const verifyPayment = async (req, res) => {
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
   let orderNumber = genCode(12);
@@ -934,7 +934,7 @@ export const verifyPayment = async (req, res) => {
   });
 }
 
-export const printInvoice = async (req, res) => {
+ const printInvoice = async (req, res) => {
   const order = await Order.findOne({ _id: req.params.id });
   const user = await User.findOne({ email: order.email });
 
@@ -971,7 +971,7 @@ export const printInvoice = async (req, res) => {
 
 };
 
-export const trackOrderPage = async (req, res) => {
+ const trackOrderPage = async (req, res) => {
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   let cartItems = cart.generateArray();
   const order = await Order.findOne({ _id: req.params.id });
@@ -979,3 +979,10 @@ export const trackOrderPage = async (req, res) => {
   
   res.render("pages/track-order", { user, order, cart, cartItems, moment, _ });
 };
+
+
+module.exports = {
+  addToCart, removeFromCart, checkOutPage, payOnDelivery, 
+  activateAccountPage, activateAccount,
+  payWithPaystack, verifyPayment,
+  printInvoice, trackOrderPage };
